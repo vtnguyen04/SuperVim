@@ -212,7 +212,7 @@ install_supervim() {
     # Check if we're already in the SuperVim directory
     if [ "$(pwd)" != "$SUPERVIM_DIR" ] && [ ! -d "$SUPERVIM_DIR/.git" ]; then
         # Clone the repository
-        if git clone --depth 1 https://github.com/yourusername/supervim.git "$SUPERVIM_DIR"; then
+        if git clone --depth 1 https://github.com/vtnguyen04/SuperVim.git "$SUPERVIM_DIR"; then
             print_success "SuperVim downloaded successfully"
         else
             # Fallback: copy current directory if this script is run from SuperVim directory
