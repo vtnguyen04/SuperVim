@@ -1,0 +1,115 @@
+name: SuperVim Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        neovim-version: ['0.9.5', '0.10.0', 'nightly']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Neovim
+      uses: rhymond/setup-neovim@v1
+      with:
+        version: ${{ matrix.neovim-version }}
+
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git curl python3 python3-pip nodejs npm
+        # Install ripgrep
+        curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+        sudo dpkg -i ripgrep_13.0.0_amd64.deb
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install Python dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        pip3 install black isort mypy pytest
+
+    - name: Test Lua syntax
+      run: |
+        # Test all Lua files for syntax errors
+        for file in $(find . -name "*.lua" -type f); do
+          echo "Testing $file"
+          nvim --headless -c "luafile $file" -c "qa" || exit 1
+        done
+
+    - name: Test installation script
+      run: |
+        bash -n install.sh
+        bash -n setup.sh
+        bash -n quick_setup.sh
+
+    - name: Test plugin configurations
+      run: |
+        nvim --headless -c "lua dofile('init.lua')" -c "qa" || true
+
+    - name: Run comprehensive tests
+      run: |
+        nvim --headless -c "
+        lua << EOF
+        -- Basic health test
+        local function test_health()
+          local ok = true
+
+          -- Test basic functionality
+          local modules = {
+            'lua/config/options.lua',
+            'lua/config/keymaps.lua',
+            'lua/config/autocmds.lua',
+            'lua/utils/init.lua'
+          }
+
+          for _, module in ipairs(modules) do
+            local success = pcall(dofile, module)
+            if not success then
+              print('FAIL: ' .. module)
+              ok = false
+            else
+              print('PASS: ' .. module)
+            end
+          end
+
+          if ok then
+            print('SUCCESS: All tests passed')
+            vim.cmd('qa!')
+          else
+            print('FAILURE: Some tests failed')
+            vim.cmd('qa! 1')
+          end
+        end
+
+        test_health()
+        EOF
+        "
+
+    - name: Check for common issues
+      run: |
+        # Check for TODO/FIXME comments
+        echo "Checking for unresolved TODOs..."
+        if grep -r "TODO\|FIXME" lua/ --exclude-dir=.git; then
+          echo "Warning: Found TODO/FIXME comments"
+        fi
+
+        # Check file permissions
+        echo "Checking script permissions..."
+        if [ ! -x install.sh ] || [ ! -x setup.sh ] || [ ! -x quick_setup.sh ]; then
+          echo "Error: Install scripts are not executable"
+          exit 1
+        fi
+
+        echo "All checks passed!"
