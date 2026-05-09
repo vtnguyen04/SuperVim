@@ -29,15 +29,24 @@ function M.setup()
   keymap("n", "<S-h>", ":bprevious<CR>", opts)
   keymap("n", "<leader>bd", ":bdelete<CR>", opts)
 
-  -- Tab navigation
-  keymap("n", "<leader>l", "<cmd>tabnext<cr>", { desc = "Tab tiếp theo" })
-  keymap("n", "<leader>h", "<cmd>tabprevious<cr>", { desc = "Tab trước đó" })
-  keymap("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "Tab mới" })
-  keymap("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Đóng tab" })
+  -- Tab navigation (actually buffer navigation for better workflow)
+  keymap("n", "<leader>l", "<cmd>bnext<cr>", { desc = "Next buffer" })
+  keymap("n", "<leader>h", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+  keymap("n", "<leader>tn", "<cmd>enew<cr>", { desc = "New buffer" })
+  keymap("n", "<leader>tc", "<cmd>bdelete<cr>", { desc = "Close buffer" })
 
-  -- Quick tab switching (Space + số)
+  -- Quick buffer switching (Space + số) - works with bufferline
   for i = 1, 9 do
-    keymap("n", "<leader>" .. i, i .. "gt", { desc = "Đến tab " .. i })
+    keymap("n", "<leader>" .. i, function()
+      -- Try to use bufferline navigation if available
+      local ok, bufferline = pcall(require, "bufferline")
+      if ok and bufferline.go_to_buffer then
+        bufferline.go_to_buffer(i, true)
+      else
+        -- Fallback: switch to buffer by number
+        vim.cmd("buffer " .. i)
+      end
+    end, { desc = "Go to buffer " .. i })
   end
 
   -- Move text up and down (Alt+j/k)
@@ -62,8 +71,23 @@ function M.setup()
   -- ==========================================
 
   -- File Explorer (Neo-tree)
-  keymap("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle file explorer" })
-  keymap("n", "<leader>o", ":Neotree focus<CR>", { desc = "Focus file explorer" })
+  keymap("n", "<leader>e", function()
+    local ok, neotree = pcall(require, "neo-tree.command")
+    if ok then
+      neotree.execute({ action = "toggle" })
+    else
+      vim.cmd("Neotree toggle")
+    end
+  end, { desc = "Toggle file explorer" })
+
+  keymap("n", "<leader>o", function()
+    local ok, neotree = pcall(require, "neo-tree.command")
+    if ok then
+      neotree.execute({ action = "focus" })
+    else
+      vim.cmd("Neotree focus")
+    end
+  end, { desc = "Focus file explorer" })
 
   -- Telescope (Fuzzy finder)
   keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
@@ -72,14 +96,89 @@ function M.setup()
   keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })
   keymap("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent files" })
 
-  -- Git keymaps (sẽ được định nghĩa trong plugin)
-  keymap("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "Open LazyGit" })
-  keymap("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>", { desc = "Git blame" })
+  -- Missing keymaps from which-key display
 
-  -- Terminal
-  keymap("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Terminal float" })
-  keymap("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Terminal horizontal" })
-  keymap("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical size=40<cr>", { desc = "Terminal vertical" })
+  -- Quit/Session management
+  keymap("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit all" })
+  keymap("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
+  keymap("n", "<leader>qw", "<cmd>wqa<cr>", { desc = "Save and quit all" })
+
+  -- Buffer operations
+  keymap("n", "<leader>b", "<cmd>Telescope buffers<cr>", { desc = "List buffers" })
+  keymap("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "List buffers" })
+
+  -- Code operations
+  keymap("n", "<leader>c", function()
+    vim.notify("Code operations - use ca, cr, cf, etc.", vim.log.levels.INFO)
+  end, { desc = "Code operations" })
+
+  -- Git operations
+  keymap("n", "<leader>g", function()
+    vim.notify("Git operations - use gg, gb, gd, etc.", vim.log.levels.INFO)
+  end, { desc = "Git operations" })
+
+  keymap("n", "<leader>gg", function()
+    local ok = pcall(vim.cmd, "LazyGit")
+    if not ok then
+      vim.notify("LazyGit not available", vim.log.levels.WARN)
+    end
+  end, { desc = "Open LazyGit" })
+
+  keymap("n", "<leader>gb", function()
+    local ok = pcall(vim.cmd, "Gitsigns toggle_current_line_blame")
+    if not ok then
+      vim.notify("Gitsigns not available", vim.log.levels.WARN)
+    end
+  end, { desc = "Git blame" })
+
+  -- Terminal operations
+  keymap("n", "<leader>t", function()
+    vim.notify("Terminal operations - use tf, th, tv, etc.", vim.log.levels.INFO)
+  end, { desc = "Terminal operations" })
+
+  keymap("n", "<leader>tf", function()
+    local ok = pcall(vim.cmd, "ToggleTerm direction=float")
+    if not ok then
+      vim.notify("ToggleTerm not available", vim.log.levels.WARN)
+    end
+  end, { desc = "Terminal float" })
+
+  keymap("n", "<leader>th", function()
+    local ok = pcall(vim.cmd, "ToggleTerm direction=horizontal")
+    if not ok then
+      vim.notify("ToggleTerm not available", vim.log.levels.WARN)
+    end
+  end, { desc = "Terminal horizontal" })
+
+  keymap("n", "<leader>tv", function()
+    local ok = pcall(vim.cmd, "ToggleTerm direction=vertical size=40")
+    if not ok then
+      vim.notify("ToggleTerm not available", vim.log.levels.WARN)
+    end
+  end, { desc = "Terminal vertical" })
+
+  -- UI operations
+  keymap("n", "<leader>u", function()
+    vim.notify("UI operations - toggle various UI elements", vim.log.levels.INFO)
+  end, { desc = "UI operations" })
+
+  -- Diagnostics/quickfix
+  keymap("n", "<leader>x", function()
+    vim.notify("Diagnostics operations - use xx, xX, etc.", vim.log.levels.INFO)
+  end, { desc = "Diagnostics/quickfix" })
+
+  -- Additional keymaps to match which-key display
+  keymap("n", "<leader>v", function()
+    vim.notify("Visual/selection operations", vim.log.levels.INFO)
+  end, { desc = "+2 keymaps" })
+
+  keymap("n", "<leader>r", function()
+    vim.notify("Replace/refactor operations", vim.log.levels.INFO)
+  end, { desc = "+1 keymap" })
+
+  keymap("n", "<leader>n", function()
+    vim.notify("Navigation operations", vim.log.levels.INFO)
+  end, { desc = "+3 keymaps" })
 
   -- Format and lint
   keymap("n", "<leader>cf", function()

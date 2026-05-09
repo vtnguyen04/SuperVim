@@ -16,6 +16,10 @@ Version: 2.0
 -- CORE CONFIGURATION BOOTSTRAP
 -- ============================================
 
+-- Set leader keys FIRST - absolutely critical for keymaps to work
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 -- Load core configuration modules
 require("config.options").setup()
 require("config.keymaps").setup()
