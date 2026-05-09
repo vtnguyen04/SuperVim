@@ -21,9 +21,9 @@ jobs:
       run: |
         if [ "${{ matrix.neovim-version }}" = "nightly" ]; then
           # Install nightly build
-          wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
-          tar -xzf nvim-linux64.tar.gz
-          sudo mv nvim-linux64 /opt/nvim
+          wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz
+          tar -xzf nvim-linux-x86_64.tar.gz
+          sudo mv nvim-linux-x86_64 /opt/nvim
           sudo ln -sf /opt/nvim/bin/nvim /usr/local/bin/nvim
         elif [ "${{ matrix.neovim-version }}" = "0.10.0" ]; then
           # Install v0.10.0

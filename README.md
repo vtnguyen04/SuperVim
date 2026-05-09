@@ -270,6 +270,17 @@ return {
 }
 ```
 
+### 📷 Generate Screenshots
+
+To contribute screenshots or update documentation:
+
+```bash
+# Run the screenshot generator
+./scripts/generate_screenshots.sh
+```
+
+This will guide you through capturing screenshots of SuperVim's key features.
+
 ## 🏗️ Architecture
 
 SuperVim follows SOLID principles with a modular structure:
@@ -406,23 +417,28 @@ SuperVim is built on the shoulders of giants:
 ## 📱 Screenshots
 
 ### 🏠 Dashboard
-![Dashboard](https://via.placeholder.com/800x500/1a1b26/7aa2f7?text=SuperVim+Dashboard)
+![Dashboard](assets/screenshots/dashboard.png)
+*SuperVim welcome screen with Alpha dashboard and quick access menu*
 
 ### 💻 Coding Experience
-![Coding](https://via.placeholder.com/800x500/1a1b26/9ece6a?text=Python+Development)
+![Coding](assets/screenshots/coding.png)
+*Python development with LSP autocompletion, diagnostics, and syntax highlighting*
 
 ### 🔍 Fuzzy Finding
-![Telescope](https://via.placeholder.com/800x500/1a1b26/bb9af7?text=Telescope+Finder)
+![Telescope](assets/screenshots/telescope.png)
+*Telescope fuzzy finder for files, symbols, and live grep search*
 
 ### 🌳 File Explorer
-![Neo-tree](https://via.placeholder.com/800x500/1a1b26/f7768e?text=Neo-tree+Explorer)
+![Neo-tree](assets/screenshots/neotree.png)
+*Neo-tree file explorer with Git status integration and file icons*
 
 ### 🐛 Debugging
-![Debugging](https://via.placeholder.com/800x500/1a1b26/73daca?text=DAP+Debugging)
+![Debugging](assets/screenshots/debugging.png)
+*DAP debugging session with breakpoints, variables, and call stack*
 
 ---
 
-> **Note**: Replace placeholder images with actual screenshots of your configuration in action.
+> **📷 Screenshots Coming Soon**: Real screenshots will be added to showcase SuperVim's features in action.
 
 ## 🗺️ Roadmap
 
