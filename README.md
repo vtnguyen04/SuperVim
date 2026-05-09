@@ -97,6 +97,20 @@ SuperVim transforms Neovim into a powerful, VSCode-like IDE while maintaining th
 
 </details>
 
+<details>
+<summary><b>🎨 Enhanced Interface (NEW!)</b></summary>
+
+- **Beautiful tab management** with slanted bufferline
+- **Smooth animations** and visual effects
+- **Professional layouts** with sidebars and floating windows
+- **Zen mode** and focus tools for distraction-free coding
+- **Visual window picker** and smart navigation
+- **Minimap integration** with syntax highlighting
+- **Enhanced notifications** with Tokyo Night styling
+- **Advanced terminal management** with multiple layouts
+
+</details>
+
 ## 📱 Screenshots
 
 ### 🏠 Dashboard
@@ -420,11 +434,38 @@ SuperVim is built on the shoulders of giants:
 - All the amazing plugin authors in the Neovim ecosystem
 
 
+## 🌊 Hyprland Integration
+
+SuperVim now comes with a **beautiful Hyprland configuration** that perfectly matches the Tokyo Night theme!
+
+### ✨ What's Included:
+- 🎨 **Matching Tokyo Night theme** across all components
+- ⌨️ **Vim-style keybindings** for window management
+- 📊 **Custom Waybar** with SuperVim integration
+- 🚀 **Rofi launcher** with Tokyo Night styling
+- 🐱 **Kitty terminal** perfectly configured
+- 🔔 **Dunst notifications** themed to match
+
+### 🚀 Install Hyprland Setup:
+```bash
+# After installing SuperVim, add Hyprland configuration:
+bash <(curl -fsSL https://raw.githubusercontent.com/vtnguyen04/SuperVim/main/install-hyprland.sh)
+```
+
+**Key Features:**
+- `Super + N` → Open Neovim instantly
+- `Super + H/J/K/L` → Vim-style window navigation
+- Beautiful blur effects and animations
+- Full Tokyo Night theme integration
+
+[📖 Full Hyprland Documentation](hyprland-config/README.md)
+
 ## 🗺️ Roadmap
 
 - [x] **AI Integration**: GitHub Copilot support ✅
 - [x] **LSP Support**: Multi-language intelligence ✅
 - [x] **Git Integration**: Full workflow support ✅
+- [x] **Hyprland Integration**: Complete desktop environment ✅
 - [ ] **More Languages**: Java, C++, C# support
 - [ ] **Better Testing**: Integration with more test frameworks
 - [ ] **Snippets**: Custom snippet collection

@@ -157,10 +157,44 @@ function M.setup()
     end
   end, { desc = "Terminal vertical" })
 
-  -- UI operations
+  -- UI operations - Enhanced SuperVim Interface
   keymap("n", "<leader>u", function()
-    vim.notify("UI operations - toggle various UI elements", vim.log.levels.INFO)
-  end, { desc = "UI operations" })
+    vim.notify("🎨 UI operations - Beautiful interface controls", vim.log.levels.INFO)
+  end, { desc = "+ui" })
+
+  -- Zen mode and focus
+  keymap("n", "<leader>uz", "<cmd>ZenMode<cr>", { desc = "Zen Mode" })
+  keymap("n", "<leader>ut", "<cmd>Twilight<cr>", { desc = "Twilight" })
+
+  -- Window and layout management
+  keymap("n", "<leader>uw", function()
+    local picked_window_id = require("window-picker").pick_window() or vim.api.nvim_get_current_win()
+    vim.api.nvim_set_current_win(picked_window_id)
+  end, { desc = "Pick window" })
+
+  keymap("n", "<leader>um", "<cmd>MinimapToggle<cr>", { desc = "Toggle minimap" })
+  keymap("n", "<leader>uf", "<cmd>FoldPreview toggle_preview<cr>", { desc = "Fold preview" })
+
+  -- Bufferline enhancements
+  keymap("n", "<leader>bp", "<cmd>BufferLineTogglePin<cr>", { desc = "Pin buffer" })
+  keymap("n", "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", { desc = "Close other buffers" })
+  keymap("n", "<leader>br", "<cmd>BufferLineCloseRight<cr>", { desc = "Close buffers right" })
+  keymap("n", "<leader>bl", "<cmd>BufferLineCloseLeft<cr>", { desc = "Close buffers left" })
+  keymap("n", "<leader>bg", "<cmd>BufferLineGroupClose<cr>", { desc = "Close buffer group" })
+
+  -- Beautiful notifications
+  keymap("n", "<leader>un", function()
+    require("notify").dismiss({ silent = true, pending = true })
+  end, { desc = "Dismiss notifications" })
+
+  -- Terminal enhancements
+  keymap("n", "<leader>tn", function()
+    require("toggleterm.terminal").Terminal:new({ cmd = "node", direction = "float" }):toggle()
+  end, { desc = "Node REPL" })
+
+  keymap("n", "<leader>tp", function()
+    require("toggleterm.terminal").Terminal:new({ cmd = "python3", direction = "float" }):toggle()
+  end, { desc = "Python REPL" })
 
   -- Diagnostics/quickfix
   keymap("n", "<leader>x", function()
