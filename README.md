@@ -270,16 +270,30 @@ return {
 }
 ```
 
-### 📷 Generate Screenshots
+### 📷 Screenshots & Documentation
 
-To contribute screenshots or update documentation:
+**Current Status**: Demo screenshots are provided to showcase SuperVim's features.
+
+To contribute real screenshots:
 
 ```bash
-# Run the screenshot generator
+# Option 1: Use the automated script (requires GUI)
 ./scripts/generate_screenshots.sh
+
+# Option 2: Manual screenshots
+# Take screenshots and save as:
+# - assets/screenshots/dashboard.png
+# - assets/screenshots/coding.png
+# - assets/screenshots/telescope.png
+# - assets/screenshots/neotree.png
+# - assets/screenshots/debugging.png
 ```
 
-This will guide you through capturing screenshots of SuperVim's key features.
+**Screenshot Guidelines**:
+- Use Tokyo Night theme for consistency
+- Include realistic code examples
+- Show key features like LSP, Git integration, etc.
+- Minimum resolution: 800x500px
 
 ## 🏗️ Architecture
 
@@ -438,7 +452,7 @@ SuperVim is built on the shoulders of giants:
 
 ---
 
-> **📷 Screenshots Coming Soon**: Real screenshots will be added to showcase SuperVim's features in action.
+> **📷 Note**: These are demo screenshots. Contribute real screenshots following the [guidelines above](#-screenshots--documentation) to showcase SuperVim in action!
 
 ## 🗺️ Roadmap
 
