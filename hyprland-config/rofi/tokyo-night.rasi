@@ -1,0 +1,116 @@
+/*
+=============================================================================
+Rofi Tokyo Night Theme for SuperVim
+=============================================================================
+*/
+
+* {
+    /* Tokyo Night Colors */
+    bg-col:  #1a1b26;
+    bg-col-light: #24283b;
+    border-col: #7aa2f7;
+    selected-col: #33467c;
+    blue: #7aa2f7;
+    fg-col: #c0caf5;
+    fg-col2: #9aa5ce;
+    grey: #565f89;
+    green: #9ece6a;
+    red: #f7768e;
+
+    width: 600;
+    font: "JetBrainsMono Nerd Font 10";
+}
+
+element-text, element-icon , mode-switcher {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+window {
+    height: 360px;
+    border: 2px;
+    border-color: @border-col;
+    background-color: @bg-col;
+    border-radius: 12px;
+}
+
+mainbox {
+    background-color: @bg-col;
+}
+
+inputbar {
+    children: [prompt,entry];
+    background-color: @bg-col;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 8px;
+    border: 1px;
+    border-color: @grey;
+}
+
+prompt {
+    background-color: @blue;
+    padding: 6px 10px;
+    text-color: @bg-col;
+    border-radius: 6px;
+    margin: 0px 8px 0px 0px;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+}
+
+entry {
+    padding: 6px;
+    margin: 0px 0px 0px 8px;
+    text-color: @fg-col;
+    background-color: @bg-col;
+    placeholder: "Search...";
+    placeholder-color: @grey;
+}
+
+listview {
+    border: 0px 0px 0px 0px;
+    padding: 6px 0px 0px 0px;
+    margin: 8px 8px 0px 8px;
+    columns: 1;
+    lines: 8;
+    background-color: @bg-col;
+}
+
+element {
+    padding: 8px;
+    background-color: @bg-col;
+    text-color: @fg-col;
+    border-radius: 6px;
+}
+
+element-icon {
+    size: 24px;
+}
+
+element selected {
+    background-color: @selected-col;
+    text-color: @fg-col;
+    border-radius: 6px;
+}
+
+mode-switcher {
+    spacing: 0;
+}
+
+button {
+    padding: 8px;
+    background-color: @bg-col-light;
+    text-color: @grey;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+    border-radius: 6px;
+    margin: 8px 4px 8px 4px;
+}
+
+button selected {
+    background-color: @blue;
+    text-color: @bg-col;
+}

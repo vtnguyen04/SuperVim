@@ -7,7 +7,7 @@ return {
   -- Advanced window management like IDEs
   {
     "folke/edgy.nvim",
-    event = "VeryLazy",
+    lazy = false,
     opts = function()
       local opts = {
         bottom = {

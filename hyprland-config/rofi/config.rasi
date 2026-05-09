@@ -1,0 +1,24 @@
+/*
+=============================================================================
+SuperVim + Rofi Configuration - Tokyo Night Theme
+=============================================================================
+*/
+
+configuration {
+    modi: "drun,run,window,ssh";
+    font: "JetBrainsMono Nerd Font 11";
+    show-icons: true;
+    icon-theme: "Papirus";
+    terminal: "kitty";
+    drun-display-format: "{name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: "   Apps ";
+    display-run: "   Run ";
+    display-window: " 﩯  Window";
+    display-Network: " 󰤨  Network";
+    sidebar-mode: true;
+}
+
+@theme "tokyo-night"

@@ -7,7 +7,8 @@ return {
   -- Advanced Bufferline with Hyprland-style tabs
   {
     "akinsho/bufferline.nvim",
-    event = "VeryLazy",
+    lazy = false,
+    priority = 900,
     keys = {
       { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
       { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
@@ -528,7 +529,7 @@ return {
   {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
-    event = "VeryLazy",
+    lazy = false,
     version = "2.*",
     opts = {
       hint = "floating-big-letter",

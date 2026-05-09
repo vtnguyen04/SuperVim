@@ -1,0 +1,174 @@
+/*
+=============================================================================
+SuperVim + Waybar Style - Tokyo Night Theme
+=============================================================================
+*/
+
+* {
+    font-family: 'JetBrainsMono Nerd Font', monospace;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(26, 27, 38, 0.9);
+    border-bottom: 2px solid #7aa2f7;
+    color: #c0caf5;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* Workspaces */
+#workspaces {
+    margin: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    background-color: transparent;
+    color: #565f89;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+    background: rgba(122, 162, 247, 0.2);
+    color: #7aa2f7;
+    border-bottom: 2px solid #7aa2f7;
+}
+
+#workspaces button.active {
+    color: #7aa2f7;
+    border-bottom: 2px solid #7aa2f7;
+    background: rgba(122, 162, 247, 0.1);
+}
+
+#workspaces button.urgent {
+    background-color: #f7768e;
+    color: #1a1b26;
+}
+
+/* Window title */
+#window {
+    margin: 0 4px;
+    padding: 0 8px;
+    color: #9ece6a;
+    font-weight: bold;
+}
+
+/* Right modules */
+#idle_inhibitor,
+#cpu,
+#memory,
+#temperature,
+#battery,
+#network,
+#pulseaudio,
+#clock,
+#tray {
+    padding: 0 8px;
+    margin: 0 2px;
+    background: rgba(26, 27, 38, 0.8);
+    border-radius: 8px;
+}
+
+#cpu {
+    color: #7aa2f7;
+}
+
+#memory {
+    color: #bb9af7;
+}
+
+#temperature {
+    color: #ff9e64;
+}
+
+#temperature.critical {
+    color: #f7768e;
+    animation: blink 0.5s linear infinite alternate;
+}
+
+#battery {
+    color: #9ece6a;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #73daca;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f7768e;
+    color: #1a1b26;
+    animation: blink 0.5s linear infinite alternate;
+}
+
+#network {
+    color: #7aa2f7;
+}
+
+#network.disconnected {
+    color: #f7768e;
+}
+
+#pulseaudio {
+    color: #bb9af7;
+}
+
+#pulseaudio.muted {
+    color: #565f89;
+}
+
+#clock {
+    color: #e0af68;
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+#tray {
+    background-color: rgba(26, 27, 38, 0.8);
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #f7768e;
+}
+
+#idle_inhibitor.activated {
+    color: #9ece6a;
+}
+
+#idle_inhibitor.deactivated {
+    color: #565f89;
+}
+
+/* Animations */
+@keyframes blink {
+    to {
+        background-color: rgba(247, 118, 142, 0.8);
+        color: #1a1b26;
+    }
+}
+
+/* Tooltip */
+tooltip {
+    background: rgba(26, 27, 38, 0.95);
+    border: 1px solid #7aa2f7;
+    border-radius: 8px;
+    color: #c0caf5;
+}
+
+tooltip label {
+    color: #c0caf5;
+}
