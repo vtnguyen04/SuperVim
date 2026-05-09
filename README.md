@@ -4,7 +4,7 @@
 
 [![Neovim](https://img.shields.io/badge/Neovim-0.9+-brightgreen.svg)](https://neovim.io/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/yourusername/supervim?style=social)](https://github.com/yourusername/supervim)
+[![Stars](https://img.shields.io/github/stars/vtnguyen04/supervim?style=social)](https://github.com/vtnguyen04/supervim)
 
 *A comprehensive, modern Neovim configuration that rivals VSCode functionality*
 
@@ -110,7 +110,7 @@ SuperVim transforms Neovim into a powerful, VSCode-like IDE while maintaining th
 ### 🚀 One-Line Installation
 
 ```bash
-bash -c \"$(curl -fsSL https://raw.githubusercontent.com/yourusername/supervim/main/install.sh)\"
+bash -c \"$(curl -fsSL https://raw.githubusercontent.com/vtnguyen04/supervim/main/install.sh)\"
 ```
 
 ### 📋 Manual Installation
@@ -123,7 +123,7 @@ bash -c \"$(curl -fsSL https://raw.githubusercontent.com/yourusername/supervim/m
 
 2. **Clone SuperVim**:
    ```bash
-   git clone https://github.com/yourusername/supervim.git ~/.config/nvim
+   git clone https://github.com/vtnguyen04/supervim.git ~/.config/nvim
    ```
 
 3. **Install dependencies**:
@@ -391,7 +391,7 @@ SuperVim is built on the shoulders of giants:
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/supervim&type=Date)](https://star-history.com/#yourusername/supervim&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=vtnguyen04/supervim&type=Date)](https://star-history.com/#vtnguyen04/supervim&Date)
 
 ---
 
@@ -437,8 +437,7 @@ SuperVim is built on the shoulders of giants:
 
 ## 💬 Community
 
-- **Discord**: [Join our community](https://discord.gg/your-invite)
-- **GitHub Discussions**: [Ask questions and share tips](https://github.com/yourusername/supervim/discussions)
+- **GitHub Discussions**: [Ask questions and share tips](https://github.com/vtnguyen04/supervim/discussions)
 - **Reddit**: [r/neovim](https://reddit.com/r/neovim)
 
 ## 📊 Stats
