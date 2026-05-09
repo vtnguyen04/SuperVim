@@ -8,7 +8,6 @@ This directory contains screenshots of SuperVim in action.
 2. **coding.png** - Python/JavaScript development with LSP
 3. **telescope.png** - Telescope fuzzy finder in action
 4. **neotree.png** - Neo-tree file explorer
-5. **debugging.png** - DAP debugging session
 
 ## How to Add Screenshots:
 

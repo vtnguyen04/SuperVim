@@ -97,6 +97,26 @@ SuperVim transforms Neovim into a powerful, VSCode-like IDE while maintaining th
 
 </details>
 
+## 📱 Screenshots
+
+### 🏠 Dashboard
+![Dashboard](assets/screenshots/dashboard.png)
+*SuperVim welcome screen with Alpha dashboard and quick access menu*
+
+### 💻 Coding Experience
+![Coding](assets/screenshots/coding.png)
+*Python development with LSP autocompletion, diagnostics, and syntax highlighting*
+
+### 🔍 Fuzzy Finding
+![Telescope](assets/screenshots/telescope.png)
+*Telescope fuzzy finder for files, symbols, and live grep search*
+
+### 🌳 File Explorer
+![Neo-tree](assets/screenshots/neotree.png)
+*Neo-tree file explorer with Git status integration and file icons*
+
+---
+
 ## ⚡ Quick Start
 
 ### Prerequisites
@@ -270,30 +290,15 @@ return {
 }
 ```
 
-### 📷 Screenshots & Documentation
+### 📷 Contributing Screenshots
 
-**Current Status**: Demo screenshots are provided to showcase SuperVim's features.
-
-To contribute real screenshots:
+Want to contribute better screenshots? Use the automated script:
 
 ```bash
-# Option 1: Use the automated script (requires GUI)
 ./scripts/generate_screenshots.sh
-
-# Option 2: Manual screenshots
-# Take screenshots and save as:
-# - assets/screenshots/dashboard.png
-# - assets/screenshots/coding.png
-# - assets/screenshots/telescope.png
-# - assets/screenshots/neotree.png
-# - assets/screenshots/debugging.png
 ```
 
-**Screenshot Guidelines**:
-- Use Tokyo Night theme for consistency
-- Include realistic code examples
-- Show key features like LSP, Git integration, etc.
-- Minimum resolution: 800x500px
+Or take manual screenshots and save to `assets/screenshots/` with proper names.
 
 ## 🏗️ Architecture
 
@@ -414,49 +419,12 @@ SuperVim is built on the shoulders of giants:
 - [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) - Fuzzy finder
 - All the amazing plugin authors in the Neovim ecosystem
 
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=vtnguyen04/supervim&type=Date)](https://star-history.com/#vtnguyen04/supervim&Date)
-
----
-
-<div align="center">
-
-**Made with ❤️ for the Vim community**
-
-[⬆️ Back to Top](#-supervim---vscode-alternative-for-neovim)
-
-</div>
-
-## 📱 Screenshots
-
-### 🏠 Dashboard
-![Dashboard](assets/screenshots/dashboard.png)
-*SuperVim welcome screen with Alpha dashboard and quick access menu*
-
-### 💻 Coding Experience
-![Coding](assets/screenshots/coding.png)
-*Python development with LSP autocompletion, diagnostics, and syntax highlighting*
-
-### 🔍 Fuzzy Finding
-![Telescope](assets/screenshots/telescope.png)
-*Telescope fuzzy finder for files, symbols, and live grep search*
-
-### 🌳 File Explorer
-![Neo-tree](assets/screenshots/neotree.png)
-*Neo-tree file explorer with Git status integration and file icons*
-
-### 🐛 Debugging
-![Debugging](assets/screenshots/debugging.png)
-*DAP debugging session with breakpoints, variables, and call stack*
-
----
-
-> **📷 Note**: These are demo screenshots. Contribute real screenshots following the [guidelines above](#-screenshots--documentation) to showcase SuperVim in action!
 
 ## 🗺️ Roadmap
 
-- [ ] **AI Integration**: GitHub Copilot support
+- [x] **AI Integration**: GitHub Copilot support ✅
+- [x] **LSP Support**: Multi-language intelligence ✅
+- [x] **Git Integration**: Full workflow support ✅
 - [ ] **More Languages**: Java, C++, C# support
 - [ ] **Better Testing**: Integration with more test frameworks
 - [ ] **Snippets**: Custom snippet collection
@@ -477,3 +445,17 @@ SuperVim is built on the shoulders of giants:
 - **Lines of Config**: 2000+
 - **Installation Time**: <5 minutes
 - **Startup Time**: <100ms
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=vtnguyen04/supervim&type=Date)](https://star-history.com/#vtnguyen04/supervim&Date)
+
+---
+
+<div align="center">
+
+**Made with ❤️ for the Vim community**
+
+[⬆️ Back to Top](#-supervim---vscode-alternative-for-neovim)
+
+</div>

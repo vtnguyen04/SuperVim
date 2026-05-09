@@ -35,15 +35,37 @@ return {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
+        filtered_items = {
+          visible = false,
+          hide_dotfiles = true,
+          hide_gitignored = true,
+          hide_hidden = true,
+          hide_by_name = {
+            ".DS_Store",
+            "thumbs.db",
+            "node_modules",
+          },
+        },
       },
       window = {
         mappings = {
           ["<space>"] = "none",
           ["Y"] = function(state)
-            local node = state.tree:get_node()
-            local path = node:get_id()
-            vim.fn.setreg("+", path, "c")
+            -- Safe node access with error handling
+            local tree = state.tree
+            if tree then
+              local node = tree:get_node()
+              if node then
+                local path = node:get_id()
+                vim.fn.setreg("+", path, "c")
+                vim.notify("Copied path: " .. path)
+              end
+            end
           end,
+          ["o"] = "open",
+          ["<cr>"] = "open",
+          ["<tab>"] = "open",
+          ["<2-LeftMouse>"] = "open",
         },
       },
       default_component_configs = {
