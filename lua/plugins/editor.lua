@@ -264,10 +264,17 @@ return {
         winblend = 0,
         -- Set explicit size to ensure it's centered and usable
         width = function()
-          return math.ceil(vim.o.columns * 0.8)
+          return math.ceil(vim.o.columns * 0.7)
         end,
         height = function()
-          return math.ceil(vim.o.lines * 0.8)
+          return math.ceil(vim.o.lines * 0.7)
+        end,
+        -- Explicitly center the window
+        col = function()
+          return math.ceil((vim.o.columns - math.ceil(vim.o.columns * 0.7)) / 2)
+        end,
+        row = function()
+          return math.ceil((vim.o.lines - math.ceil(vim.o.lines * 0.7)) / 2)
         end,
         highlights = {
           border = "Normal",
