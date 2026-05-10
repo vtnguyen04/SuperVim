@@ -262,6 +262,13 @@ return {
       float_opts = {
         border = "curved",
         winblend = 0,
+        -- Set explicit size to ensure it's centered and usable
+        width = function()
+          return math.ceil(vim.o.columns * 0.8)
+        end,
+        height = function()
+          return math.ceil(vim.o.lines * 0.8)
+        end,
         highlights = {
           border = "Normal",
           background = "Normal",
