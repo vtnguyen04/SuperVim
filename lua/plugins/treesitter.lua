@@ -53,45 +53,15 @@ return {
       },
     },
     config = function(_, opts)
-      -- Safe loading with error handling
+      -- Enable auto-install for better experience
+      opts.auto_install = true
+      
       local ok, configs = pcall(require, "nvim-treesitter.configs")
-      if not ok then
-        vim.notify("Failed to load nvim-treesitter.configs", vim.log.levels.WARN)
-        return
+      if ok then
+        configs.setup(opts)
+      else
+        vim.notify("Treesitter chưa được cài đặt đầy đủ. Vui lòng chạy :Lazy sync", vim.log.levels.WARN)
       end
-
-      -- Filter duplicate languages
-      if type(opts.ensure_installed) == "table" then
-        local added = {}
-        opts.ensure_installed = vim.tbl_filter(function(lang)
-          if added[lang] then
-            return false
-          end
-          added[lang] = true
-          return true
-        end, opts.ensure_installed)
-      end
-
-      configs.setup(opts)
-
-      -- Fix for telescope compatibility with Neovim 0.12+
-      -- Add ft_to_lang compatibility function if missing
-      vim.schedule(function()
-        local ts_lang = vim.treesitter.language
-        if ts_lang and not ts_lang.ft_to_lang then
-          ts_lang.ft_to_lang = function(ft)
-            -- Common filetype to language mappings
-            local ft_map = {
-              javascriptreact = "javascript",
-              typescriptreact = "typescript",
-              bash = "bash",
-              zsh = "bash",
-              sh = "bash",
-            }
-            return ft_map[ft] or ft
-          end
-        end
-      end)
     end,
   },
 
@@ -104,7 +74,17 @@ return {
       max_lines = 3,
       trim_scope = "outer",
       mode = "cursor",
+      separator = nil,
     },
+    config = function(_, opts)
+      -- Safe loading with error handling
+      local ok, context = pcall(require, "treesitter-context")
+      if not ok then
+        vim.notify("Failed to load treesitter-context", vim.log.levels.WARN)
+        return
+      end
+      context.setup(opts)
+    end,
     keys = {
       {
         "<leader>ut",

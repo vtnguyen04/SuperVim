@@ -28,7 +28,7 @@ return {
   -- Copilot Chat for AI conversations
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
+    -- branch = "main", -- default branch is main, let lazy manage it
     dependencies = {
       { "github/copilot.vim" },
       { "nvim-lua/plenary.nvim" },

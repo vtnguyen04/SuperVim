@@ -1,0 +1,19 @@
+# Neovim temp files
+*.swp
+*.swo
+undo/
+backup/
+view/
+
+# SuperVim Developer Mode
+.supervim_dev
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+
+# OS specific
+.DS_Store
+Thumbs.db

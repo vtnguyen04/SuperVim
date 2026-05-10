@@ -57,9 +57,9 @@ return {
             },
           },
         },
-        ts_ls = {},
+        ts_ls = {}, -- New name for tsserver
         html = {},
-        cssls = {},
+        cssls = {}, -- Correct name is cssls, not css_ls
         tailwindcss = {},
         gopls = {},
         rust_analyzer = {},
@@ -134,21 +134,22 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
-        -- LSP servers
+        -- LSP servers (Mason package names)
         "pyright",
-        "lua_ls",
-        "ts_ls",
-        "html",
-        "cssls",
-        "tailwindcss",
+        "lua-language-server",
+        "typescript-language-server",
+        "html-lsp",
+        "css-lsp",
+        "tailwindcss-language-server",
         "gopls",
-        "rust_analyzer",
+        "rust-analyzer",
 
         -- Formatters
         "black",
         "isort",
         "prettier",
         "stylua",
+        "gofumpt",
 
         -- Linters
         "flake8",
@@ -158,28 +159,21 @@ return {
     config = function(_, opts)
       require("mason").setup(opts)
       local mr = require("mason-registry")
-      mr:on("package:install:success", function()
-        vim.defer_fn(function()
-          require("lazy.core.handler.event").trigger({
-            event = "FileType",
-            buf = vim.api.nvim_get_current_buf(),
-          })
-        end, 100)
-      end)
-      local function ensure_installed()
+
+      local function install_ensured()
         for _, tool in ipairs(opts.ensure_installed) do
-          local ok, p = pcall(mr.get_package, mr, tool)
+          local ok, p = pcall(mr.get_package, tool)
           if ok and p and not p:is_installed() then
             p:install()
-          elseif not ok then
-            vim.notify("Mason: Package '" .. tool .. "' not found, skipping...", vim.log.levels.WARN)
           end
         end
       end
+
+      -- Registry refresh and initial install
       if mr.refresh then
-        mr.refresh(ensure_installed)
+        mr.refresh(install_ensured)
       else
-        ensure_installed()
+        install_ensured()
       end
     end,
   },

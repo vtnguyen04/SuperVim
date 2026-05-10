@@ -25,6 +25,9 @@ require("config.options").setup()
 require("config.keymaps").setup()
 require("config.autocmds").setup()
 
+-- Setup Automatic Updates
+require("utils.updater").setup()
+
 -- Bootstrap lazy.nvim and load plugins
 require("config.lazy").setup()
 

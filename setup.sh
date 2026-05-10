@@ -99,8 +99,13 @@ main() {
     # 2. Install SuperVim
     print_step "Installing SuperVim configuration..."
     mkdir -p "$HOME/.config"
-    cp -r "$(pwd)" "$HOME/.config/nvim"
-    print_success "SuperVim installed to ~/.config/nvim"
+    
+    # Use symlink for better development experience
+    if [ -d "$HOME/.config/nvim" ]; then
+        rm -rf "$HOME/.config/nvim"
+    fi
+    ln -s "$(pwd)" "$HOME/.config/nvim"
+    print_success "SuperVim linked to ~/.config/nvim (Symlink Mode)"
 
     # 3. Create restore script
     print_step "Creating restore script..."

@@ -209,25 +209,22 @@ install_supervim() {
     # Create config directory
     mkdir -p "$(dirname "$SUPERVIM_DIR")"
 
-    # Check if we're already in the SuperVim directory
-    if [ "$(pwd)" != "$SUPERVIM_DIR" ] && [ ! -d "$SUPERVIM_DIR/.git" ]; then
-        # Clone the repository
-        if git clone --depth 1 https://github.com/vtnguyen04/SuperVim.git "$SUPERVIM_DIR"; then
-            print_success "SuperVim downloaded successfully"
-        else
-            # Fallback: copy current directory if this script is run from SuperVim directory
-            if [ -f "$(pwd)/init.lua" ]; then
-                print_info "Using local SuperVim configuration"
-                cp -r "$(pwd)" "$SUPERVIM_DIR"
-            else
-                print_error "Failed to download SuperVim"
-                exit 1
-            fi
+    # If running from a local SuperVim directory, offer symlink for development
+    if [ -f "$(pwd)/init.lua" ] && [ -d "$(pwd)/lua" ]; then
+        print_info "Local SuperVim directory detected."
+        read -p "Install using symlink for development? (Changes here will apply immediately to nvim) (y/N): " -n 1 -r
+        echo ""
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            rm -rf "$SUPERVIM_DIR"
+            ln -s "$(pwd)" "$SUPERVIM_DIR"
+            print_success "SuperVim installed via symlink to $SUPERVIM_DIR"
+            return
         fi
-    else
-        print_info "Using existing SuperVim configuration"
     fi
-}
+
+    # Standard installation (Clone or Copy)
+    if [ "$(pwd)" != "$SUPERVIM_DIR" ] && [ ! -d "$SUPERVIM_DIR/.git" ]; then
+        # ... standard clone logic ...
 
 install_nerd_fonts() {
     print_step "Installing Nerd Fonts..."

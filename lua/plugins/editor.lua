@@ -209,42 +209,37 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
+      preset = "modern", -- modern | classic | helix
       plugins = { spelling = true },
-      window = {
+      win = {
         border = "rounded",
-        position = "bottom",
-        margin = { 1, 0, 1, 0 },
-        padding = { 1, 2, 1, 2 },
+        padding = { 1, 2 },
       },
       layout = {
-        height = { min = 4, max = 25 },
-        width = { min = 20, max = 50 },
         spacing = 3,
       },
-      defaults = {
-        mode = { "n", "v" },
-        ["g"] = { name = "+goto" },
-        ["gz"] = { name = "+surround" },
-        ["]"] = { name = "+next" },
-        ["["] = { name = "+prev" },
-        ["<leader><tab>"] = { name = "+tabs" },
-        ["<leader>b"] = { name = "+buffer" },
-        ["<leader>c"] = { name = "+code" },
-        ["<leader>f"] = { name = "+file/find" },
-        ["<leader>g"] = { name = "+git" },
-        ["<leader>gh"] = { name = "+hunks" },
-        ["<leader>q"] = { name = "+quit/session" },
-        ["<leader>s"] = { name = "+search" },
-        ["<leader>t"] = { name = "+terminal" },
-        ["<leader>u"] = { name = "+ui" },
-        ["<leader>w"] = { name = "+windows" },
-        ["<leader>x"] = { name = "+diagnostics/quickfix" },
+      spec = {
+        { "g", group = "goto", icon = "󰈞 " },
+        { "gz", group = "surround", icon = "󰗅 " },
+        { "]", group = "next", icon = "󰒭 " },
+        { "[", group = "prev", icon = "󰒮 " },
+        { "<leader><tab>", group = "tabs", icon = "󰓩 " },
+        { "<leader>b", group = "buffer", icon = "󰓩 " },
+        { "<leader>c", group = "code", icon = "󰅱 " },
+        { "<leader>f", group = "file/find", icon = "󰈞 " },
+        { "<leader>g", group = "git", icon = "󰊢 " },
+        { "<leader>gh", group = "hunks", icon = "󰊢 " },
+        { "<leader>q", group = "quit/session", icon = "󰈆 " },
+        { "<leader>s", group = "search", icon = "󰍉 " },
+        { "<leader>t", group = "test", icon = "󰙨 " },
+        { "<leader>T", group = "terminal", icon = "󰆍 " },
+        { "<leader>u", group = "ui/toggle", icon = "󰃠 " },
+        { "<leader>w", group = "windows", icon = "󰖲 " },
+        { "<leader>x", group = "diagnostics/quickfix", icon = "󰒡 " },
       },
     },
     config = function(_, opts)
-      local wk = require("which-key")
-      wk.setup(opts)
-      wk.register(opts.defaults)
+      require("which-key").setup(opts)
     end,
   },
 
@@ -319,5 +314,11 @@ return {
         desc = "Next trouble/quickfix item",
       },
     },
+  },
+
+  -- Buffer removal (deletes buffer but keeps window layout)
+  {
+    "echasnovski/mini.bufremove",
+    version = false,
   },
 }

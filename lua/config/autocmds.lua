@@ -169,6 +169,44 @@ function M.setup()
     end,
     group = close_with_q,
   })
+
+  -- ==========================================
+  -- TERMINAL AUTO-INSERT - Tự động vào chế độ gõ khi mở Terminal
+  -- ==========================================
+  local terminal_group = augroup("TerminalAutoInsert", { clear = true })
+  autocmd({ "BufEnter", "WinEnter", "TermOpen" }, {
+    pattern = "term://*",
+    callback = function()
+      vim.cmd("startinsert")
+    end,
+    group = terminal_group,
+  })
+
+  -- ==========================================
+  -- DEVELOPER SYNC (SAFE & GENERIC)
+  -- Tự động đồng bộ nếu có file .supervim_dev
+  -- ==========================================
+  local cwd = vim.fn.getcwd()
+  local target = vim.fn.expand("$HOME/.config/nvim")
+  local dev_marker = cwd .. "/.supervim_dev"
+
+  -- Chỉ chạy nếu có file marker và cwd không phải là thư mục config hệ thống
+  if vim.fn.filereadable(dev_marker) == 1 and cwd ~= target then
+    local sync_group = augroup("SuperVimDevSync", { clear = true })
+    autocmd("BufWritePost", {
+      pattern = cwd .. "/*",
+      callback = function()
+        vim.fn.jobstart({"cp", "-r", cwd .. "/.", target}, {
+          on_exit = function(_, exit_code)
+            if exit_code == 0 then
+              vim.notify("✅ Dev Sync: Hệ thống đã được cập nhật!", vim.log.levels.INFO)
+            end
+          end
+        })
+      end,
+      group = sync_group,
+    })
+  end
 end
 
 return M
