@@ -212,9 +212,16 @@ install_supervim() {
     # If running from a local SuperVim directory, offer symlink for development
     if [ -f "$(pwd)/init.lua" ] && [ -d "$(pwd)/lua" ]; then
         print_info "Local SuperVim directory detected."
-        read -p "Install using symlink for development? (Changes here will apply immediately to nvim) (y/N): " -n 1 -r
+        
+        local dev_reply="n"
+        if [ -t 0 ]; then
+            read -p "Install using symlink for development? (Changes here will apply immediately to nvim) (y/N): " -n 1 -r dev_reply
+        elif [ -c /dev/tty ]; then
+            read -p "Install using symlink for development? (Changes here will apply immediately to nvim) (y/N): " -n 1 -r dev_reply < /dev/tty || dev_reply="n"
+        fi
         echo ""
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
+        
+        if [[ $dev_reply =~ ^[Yy]$ ]]; then
             rm -rf "$SUPERVIM_DIR"
             ln -s "$(pwd)" "$SUPERVIM_DIR"
             print_success "SuperVim installed via symlink to $SUPERVIM_DIR"
@@ -223,8 +230,21 @@ install_supervim() {
     fi
 
     # Standard installation (Clone or Copy)
-    if [ "$(pwd)" != "$SUPERVIM_DIR" ] && [ ! -d "$SUPERVIM_DIR/.git" ]; then
-        # ... standard clone logic ...
+    if [ "$(pwd)" != "$SUPERVIM_DIR" ]; then
+        print_info "Copying SuperVim files to $SUPERVIM_DIR..."
+        # Create directory if it doesn't exist (though mkdir -p was called above)
+        mkdir -p "$SUPERVIM_DIR"
+        # Copy files excluding .git if it exists to avoid nested repos or large copies
+        if [ -d ".git" ]; then
+            cp -rf [!.]* "$SUPERVIM_DIR" 2>/dev/null || true
+            cp -rf .[^.]* "$SUPERVIM_DIR" 2>/dev/null || true
+            rm -rf "$SUPERVIM_DIR/.git" # We don't want the .git folder in ~/.config/nvim usually if it's a copy
+        else
+            cp -rf . "$SUPERVIM_DIR"
+        fi
+        print_success "SuperVim files copied to $SUPERVIM_DIR"
+    fi
+}
 
 install_nerd_fonts() {
     print_step "Installing Nerd Fonts..."
@@ -433,10 +453,20 @@ main() {
         echo -e "${RED}Existing configuration will be backed up${NC}"
     fi
     echo ""
-    read -p "Continue? (y/N): " -n 1 -r
+    
+    # Try to read from TTY, fallback to N if fails
+    user_reply="n"
+    if [ -t 0 ]; then
+        read -p "Continue? (y/N): " -n 1 -r user_reply
+    elif [ -c /dev/tty ]; then
+        read -p "Continue? (y/N): " -n 1 -r user_reply < /dev/tty || user_reply="n"
+    else
+        print_warning "No interactive terminal found. Defaulting to No."
+        user_reply="n"
+    fi
     echo ""
 
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    if [[ ! $user_reply =~ ^[Yy]$ ]]; then
         print_info "Installation cancelled"
         exit 0
     fi
