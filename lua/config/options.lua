@@ -19,7 +19,7 @@ function M.setup()
   vim.opt.cmdheight = 1
   vim.opt.scrolloff = 8
   vim.opt.sidescrolloff = 8
-  vim.opt.guicursor = "n-v-c-i:block" -- Always use block cursor for a premium look
+  vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- Normal/Visual: block, Insert: beam
 
   -- Editor behavior
   vim.opt.mouse = "a"
